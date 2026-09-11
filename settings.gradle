@@ -1,0 +1,28 @@
+pluginManagement {
+    plugins {
+        id("org.jetbrains.kotlin.plugin.compose") version "2.3.10"
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "XD VPN"
+
+include(":app")
+include(":hev-socks5-tunnel")
+
+project(":hev-socks5-tunnel").projectDir =
+    file("app/hev-socks5-tunnel/library")
