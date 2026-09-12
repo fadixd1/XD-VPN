@@ -9,3 +9,7 @@
 .cxx
 local.properties
 .studio/
+
+# Build outputs
+app/build/
+build/
