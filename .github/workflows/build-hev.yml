@@ -34,6 +34,8 @@ jobs:
         run: |
           export ANDROID_HOME="$ANDROID_SDK_ROOT"
           export NDK_HOME="$ANDROID_HOME/ndk/29.0.14206865"
+          sed -i 's#-DPKGNAME=com/v2ray/ang/service#-DPKGNAME=com/fadixd/fadivpn/vpn -DCLSNAME=FadiHevTunnel#' compile-hevtun.sh
+          grep -n 'APP_CFLAGS' compile-hevtun.sh
           bash ./compile-hevtun.sh
 
       - name: Prepare ARM64 libraries
