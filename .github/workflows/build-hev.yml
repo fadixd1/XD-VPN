@@ -1,0 +1,50 @@
+name: Build HEV
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-hev:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout FADI-VPN
+        uses: actions/checkout@v4
+
+      - name: Checkout v2rayNG HEV source
+        run: |
+          git clone --depth 1 --recurse-submodules https://github.com/2dust/v2rayNG.git hev-build
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install NDK 29
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "ndk;29.0.14206865"
+
+      - name: Build HEV
+        working-directory: hev-build
+        run: |
+          export ANDROID_HOME="$ANDROID_SDK_ROOT"
+          export NDK_HOME="$ANDROID_HOME/ndk/29.0.14206865"
+          bash ./compile-hevtun.sh
+
+      - name: Prepare ARM64 libraries
+        run: |
+          mkdir -p hev-artifact/arm64-v8a
+          cp hev-build/libs/arm64-v8a/libhev-socks5-tunnel.so hev-artifact/arm64-v8a/
+          cp hev-build/libs/arm64-v8a/libhevsockstun.so hev-artifact/arm64-v8a/
+          ls -lh hev-artifact/arm64-v8a/
+
+      - name: Upload HEV ARM64
+        uses: actions/upload-artifact@v4
+        with:
+          name: FADI-VPN-HEV-arm64-v8a
+          path: hev-artifact/
