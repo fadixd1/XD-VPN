@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.fadixd.fadivpn.app-debug-43:/drawable_fadi_neon_shield.xml.flat",
+        "source": "com.fadixd.fadivpn.app-main-45:/drawable/fadi_neon_shield.xml"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.7.1/com.fadixd.fadivpn.app-debug-43:/drawable_fadi_vpn_icon.xml.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.7.1/com.fadixd.fadivpn.app-main-45:/drawable/fadi_vpn_icon.xml"
+    }
+]
